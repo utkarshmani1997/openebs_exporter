@@ -2,9 +2,10 @@ package collector
 
 import (
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus"
 	"sync"
 	"time"
+
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 // NsqExecutor collects all NSQ metrics from the registered collectors.
@@ -61,8 +62,8 @@ func (e *Executor) Collect(out chan<- prometheus.Metric) {
 	for _, c := range e.collectors {
 		c.reset()
 	}
-
-	stats, err := getVolStats(e.URL)
+	stats := volume{}
+	err := getVolStats(e.URL, &stats)
 	fmt.Println(e.URL, stats)
 	tScrape := time.Since(start).Seconds()
 
@@ -75,7 +76,7 @@ func (e *Executor) Collect(out chan<- prometheus.Metric) {
 
 	if err == nil {
 		for _, c := range e.collectors {
-			c.set(stats)
+			c.set(&stats)
 		}
 		for _, c := range e.collectors {
 			c.collect(out)

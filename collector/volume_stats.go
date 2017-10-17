@@ -1,8 +1,6 @@
 package collector
 
 import (
-	"strconv"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -121,8 +119,8 @@ func VolumeStats(namespace string) StatsCollector {
 	}
 }
 
-func (cs volumeStats) set(s *stats) {
-	for _, stat := range s.VolStats {
+func (cs volumeStats) set(s *volume) {
+	/*for _, stat := range s.VolStats {
 		labels := prometheus.Labels{
 			"OpenEBS": "Jiva",
 		}
@@ -131,6 +129,7 @@ func (cs volumeStats) set(s *stats) {
 			c.vec.With(labels).Set(v)
 		}
 	}
+	*/
 }
 
 func (cs volumeStats) collect(out chan<- prometheus.Metric) {

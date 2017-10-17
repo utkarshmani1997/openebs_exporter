@@ -2,6 +2,8 @@ package collector
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -27,17 +29,24 @@ type volume struct {
 	SectorSize        string `json:"SectorSize"`
 }
 
-func getVolStats(URL string) (*stats, error) {
+func getVolStats(URL string, obj interface{}) error {
 
 	resp, err := http.Get(URL)
 	if err != nil {
-		return nil, err
+		return err
 	}
+
+	bodyBytes, err2 := ioutil.ReadAll(resp.Body)
+	bodyString := string(bodyBytes)
+	fmt.Println(bodyString)
+	if err2 != nil {
+		return err2
+	}
+
 	defer resp.Body.Close()
 
-	var s stats
-	if err = json.NewDecoder(resp.Body).Decode(&s); err != nil {
-		return nil, err
+	if err = json.NewDecoder(resp.Body).Decode(obj); err != nil {
+		return err
 	}
-	return &s, nil
+	return nil
 }

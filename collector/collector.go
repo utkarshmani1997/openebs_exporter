@@ -7,7 +7,7 @@ import (
 // StatsCollector defines an interface for collecting specific stats
 // from a nsqd exported stats data.
 type StatsCollector interface {
-	set(s *stats)
+	set(s *volume)
 	collect(out chan<- prometheus.Metric)
 	describe(ch chan<- *prometheus.Desc)
 	reset()
