@@ -25,7 +25,7 @@ var (
 
 	enabledCollectors = flag.String("collect", "stats.OpenEBS", "Comma-separated list of collectors to use.")
 	statsRegistry     = map[string]func(namespace string) collector.StatsCollector{
-		"OpenEBS": collector.ChannelStats,
+		"OpenEBS": collector.VolumeStats,
 	}
 )
 

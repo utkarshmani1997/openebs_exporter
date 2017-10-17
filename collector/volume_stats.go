@@ -7,19 +7,19 @@ import (
 )
 
 type volumeStats []struct {
-	val func(*VolumeStats) string
+	val func(*volume) string
 	vec *prometheus.GaugeVec
 }
 
 // ChannelStats creates a new stats collector which is able to
 // expose the channel metrics of a openebs exporter node to Prometheus.
 // The channel metrics are reported per topic.
-func ChannelStats(namespace string) StatsCollector {
+func VolumeStats(namespace string) StatsCollector {
 	labels := []string{"OpenEBS"}
 	namespace += "_openebs"
 	return volumeStats{
 		{
-			val: func(c *VolumeStats) string { return string(c.RevisionCounter) },
+			val: func(c *volume) string { return string(c.RevisionCounter) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "revision_counter",
@@ -27,7 +27,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.ReplicaCounter) },
+			val: func(c *volume) string { return string(c.ReplicaCounter) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "replica_counter",
@@ -47,7 +47,7 @@ func ChannelStats(namespace string) StatsCollector {
 					}, labels),
 				},
 		*/{
-			val: func(c *VolumeStats) string { return string(c.ReadIOPS) },
+			val: func(c *volume) string { return string(c.ReadIOPS) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "read_iops",
@@ -55,7 +55,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.TotalReadTime) },
+			val: func(c *volume) string { return string(c.TotalReadTime) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "total_read_time",
@@ -63,7 +63,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.TotalReadBlockCount) },
+			val: func(c *volume) string { return string(c.TotalReadBlockCount) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "total_read_block_count",
@@ -71,7 +71,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.WriteIOPS) },
+			val: func(c *volume) string { return string(c.WriteIOPS) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "write_iops",
@@ -79,7 +79,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.TotalWriteTime) },
+			val: func(c *volume) string { return string(c.TotalWriteTime) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "total_write_time",
@@ -87,7 +87,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.TotalWriteBlockCount) },
+			val: func(c *volume) string { return string(c.TotalWriteBlockCount) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "total_write_block_count",
@@ -95,7 +95,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.UsedLogicalBlocks) },
+			val: func(c *volume) string { return string(c.UsedLogicalBlocks) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "used_logical_blocks",
@@ -103,7 +103,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.UsedBlocks) },
+			val: func(c *volume) string { return string(c.UsedBlocks) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "used_blocks",
@@ -111,7 +111,7 @@ func ChannelStats(namespace string) StatsCollector {
 			}, labels),
 		},
 		{
-			val: func(c *VolumeStats) string { return string(c.SectorSize) },
+			val: func(c *volume) string { return string(c.SectorSize) },
 			vec: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 				Namespace: namespace,
 				Name:      "sector_size",

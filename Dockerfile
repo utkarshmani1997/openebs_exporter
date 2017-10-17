@@ -3,7 +3,7 @@ MAINTAINER Utkarsh Mani Tripathi <utkarshmani1997@gmail.com>
 ADD . /home
 WORKDIR /home
 RUN go get github.com/prometheus/client_golang/prometheus
-RUN ["go","build"]
+RUN ["go", "build"]
 ENTRYPOINT ["./home"]
 EXPOSE 9500
 

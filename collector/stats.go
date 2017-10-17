@@ -12,10 +12,10 @@ type statsResponse struct {
 }
 
 type stats struct {
-	VolStats []*VolumeStats
+	VolStats []*volume
 }
 
-type VolumeStats struct {
+type volume struct {
 	RevisionCounter int64         `json:"RevisionCounter"`
 	ReplicaCounter  int64         `json:"ReplicaCounter"`
 	SCSIIOCount     map[int]int64 `json:"SCSIIOCount"`
