@@ -97,8 +97,9 @@ func normalizeURL(ustr string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Println(u, u.String())
 	if u.Path == "" {
-		u.Path = "/stats"
+		u.Path = "v1/stats"
 	}
 	return u.String(), nil
 }
