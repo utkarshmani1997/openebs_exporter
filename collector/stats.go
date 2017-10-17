@@ -5,12 +5,6 @@ import (
 	"net/http"
 )
 
-type statsResponse struct {
-	StatusCode int    `json:"status_code"`
-	StatusText string `json:"status_text"`
-	Data       stats  `json:"data"`
-}
-
 type stats struct {
 	VolStats []*volume
 }
@@ -41,9 +35,9 @@ func getVolStats(URL string) (*stats, error) {
 	}
 	defer resp.Body.Close()
 
-	var sr statsResponse
-	if err = json.NewDecoder(resp.Body).Decode(&sr); err != nil {
+	var s stats
+	if err = json.NewDecoder(resp.Body).Decode(&s); err != nil {
 		return nil, err
 	}
-	return &sr.Data, nil
+	return &s, nil
 }
