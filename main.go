@@ -100,6 +100,5 @@ func normalizeURL(ustr string) (string, error) {
 	if u.Path == "" {
 		u.Path = "/stats"
 	}
-	u.RawQuery = "format=json"
 	return u.String(), nil
 }
