@@ -82,12 +82,12 @@ var (
 )
 
 // Exporter implements the prometheus.Collector interface. It exposes the metrics
-// of a NATS node.
+// of a OpenEBS Volume.
 type OpenEBSExporter struct {
 	OpenEBSControllerURL string
 }
 
-// NewExporter instantiates a new NATS Exporter.
+// NewExporter instantiates a new OpenEBS Exporter.
 func NewExporter(openEBSControllerURL *url.URL) *OpenEBSExporter {
 	openEBSControllerURL.Path = "/v1/stats"
 	return &OpenEBSExporter{
@@ -95,7 +95,7 @@ func NewExporter(openEBSControllerURL *url.URL) *OpenEBSExporter {
 	}
 }
 
-// Describe describes all the registered stats metrics from the NATS node.
+// Describe describes all the registered stats metrics from the OpenEBS Volume.
 func (e *OpenEBSExporter) Describe(ch chan<- *prometheus.Desc) {
 	readIOPS.Describe(ch)
 	totalReadTime.Describe(ch)
@@ -108,7 +108,7 @@ func (e *OpenEBSExporter) Describe(ch chan<- *prometheus.Desc) {
 	sectorSize.Describe(ch)
 }
 
-// Collect collects all the registered stats metrics from the NATS node.
+// Collect collects all the registered stats metrics from the OpenEBS Volume.
 func (e *OpenEBSExporter) Collect(ch chan<- prometheus.Metric) {
 	if err := e.collect(); err != nil {
 		return
